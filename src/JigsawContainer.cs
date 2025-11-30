@@ -26,7 +26,7 @@ namespace Jigsaw
 
         private JigsawPiece heldPiece = null;
         private Vector2 lastMousePos;
-        private int flashCounter = 0;
+        private float flashCounter = 0;
 
         public void Regenerate()
         {
@@ -141,7 +141,7 @@ namespace Jigsaw
                 }
 
                 // Update colors
-                flashCounter++;
+                flashCounter += Time.deltaTime * 6f;
                 if (Options.JigsawFlash)
                 {
                     foreach (var piece in pieces)
@@ -153,7 +153,7 @@ namespace Jigsaw
                         }
                         else if (heldPiece == null && topPiece != null && topPiece.group.Contains(piece))
                         {
-                            b = (Mathf.Cos(flashCounter / 10f) * -0.5f + 0.5f) * Mathf.Lerp(0.25f, 0.05f, (float)topPiece.group.Count / (Width * Height));
+                            b = (Mathf.Cos(flashCounter) * -0.5f + 0.5f) * Mathf.Lerp(0.25f, 0.05f, (float)topPiece.group.Count / (Width * Height));
                         }
                         else
                         {
